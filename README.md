@@ -7,9 +7,11 @@ HTML / CSS, SQL Server, Rust, SQLite.
 
 ## Requirements
 
-- Neovim **0.11+**
+- Neovim **0.12+**
 - git, [ripgrep](https://github.com/BurntSushi/ripgrep), [fd](https://github.com/sharkdp/fd)
-- A C compiler for treesitter parsers (Arch: `gcc`; Windows: `zig` is the easiest)
+- A C compiler + the `tree-sitter` CLI (0.26.1+) to build treesitter parsers.
+  Install the CLI with your package manager or cargo, **not npm**.
+  Arch: `gcc` + `tree-sitter-cli`. Windows: `zig` + `cargo install --locked tree-sitter-cli`
 - Node.js (prettier, Vue/TS servers, PHP + JS debug adapters)
 - Java **21+** on PATH (jdtls needs it; your project can still target 8/11/17)
 - Rust via `rustup` (`rustup component add rust-analyzer rustfmt clippy`)
@@ -19,13 +21,15 @@ HTML / CSS, SQL Server, Rust, SQLite.
 ### Arch
 
 ```sh
-sudo pacman -S neovim git ripgrep fd gcc nodejs npm jdk21-openjdk rustup lazygit sqlite
+sudo pacman -S neovim git ripgrep fd gcc tree-sitter-cli nodejs npm jdk21-openjdk rustup lazygit sqlite
 ```
 
 ### Windows
 
 ```powershell
 winget install Neovim.Neovim Git.Git BurntSushi.ripgrep.MSVC sharkdp.fd zig.zig OpenJS.NodeJS.LTS Microsoft.OpenJDK.21 Rustlang.Rustup JesseDuffield.lazygit
+# after rustup is set up:
+cargo install --locked tree-sitter-cli
 ```
 
 ## Install
