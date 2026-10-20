@@ -1,19 +1,8 @@
 local map = vim.keymap.set
 
 -- Better up/down on wrapped lines
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Visual LINE mode (V): j/k move the selected lines down/up.
--- Normal visual mode (v) and block mode (Ctrl+V): j/k move the cursor as usual.
-map("x", "j", function()
-  if vim.fn.mode() == "V" then return ":m '>+" .. vim.v.count1 .. "<cr>gv=gv" end
-  return vim.v.count == 0 and "gj" or "j"
-end, { expr = true, silent = true, desc = "Move lines down (V) / down" })
-map("x", "k", function()
-  if vim.fn.mode() == "V" then return ":m '<-" .. (vim.v.count1 + 1) .. "<cr>gv=gv" end
-  return vim.v.count == 0 and "gk" or "k"
-end, { expr = true, silent = true, desc = "Move lines up (V) / up" })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
@@ -32,6 +21,10 @@ map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
 map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
+
+-- Visual mode: J / K move the selected lines (j / k still grow the selection)
+map("x", "J", function() return ":m '>+" .. vim.v.count1 .. "<cr>gv=gv" end, { expr = true, silent = true, desc = "Move selection down" })
+map("x", "K", function() return ":m '<-" .. (vim.v.count1 + 1) .. "<cr>gv=gv" end, { expr = true, silent = true, desc = "Move selection up" })
 
 -- Buffers
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })

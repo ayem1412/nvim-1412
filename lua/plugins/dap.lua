@@ -1,170 +1,32 @@
--- Debugging.
---   Rust  -> codelldb (set up by rustaceanvim)
---   Java  -> java-debug-adapter + java-test (set up by nvim-jdtls, see ftplugin/java.lua)
---   PHP   -> php-debug-adapter + Xdebug (port 9003, or 9000 for old Xdebug 2 on PHP 5)
---   JS/TS -> js-debug-adapter (node + chrome)
+-- Debugging. Adapters and launch configs are in lua/setup/dap.lua
 return {
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
-      { "theHamsta/nvim-dap-virtual-text", opts = {} },
-      "mason-org/mason.nvim",
-    },
-    keys = {
-      { "<F5>", function() require("dap").continue() end, desc = "Debug: Start/Continue" },
-      { "<F10>", function() require("dap").step_over() end, desc = "Debug: Step over" },
-      { "<F11>", function() require("dap").step_into() end, desc = "Debug: Step into" },
-      { "<S-F11>", function() require("dap").step_out() end, desc = "Debug: Step out" },
-      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
-      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Condition: ")) end, desc = "Conditional breakpoint" },
-      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to cursor" },
-      { "<leader>di", function() require("dap").step_into() end, desc = "Step into" },
-      { "<leader>do", function() require("dap").step_over() end, desc = "Step over" },
-      { "<leader>dO", function() require("dap").step_out() end, desc = "Step out" },
-      { "<leader>dj", function() require("dap").down() end, desc = "Down (stack)" },
-      { "<leader>dk", function() require("dap").up() end, desc = "Up (stack)" },
-      { "<leader>dl", function() require("dap").run_last() end, desc = "Run last" },
-      { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "REPL" },
-      { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-      { "<leader>du", function() require("dapui").toggle({}) end, desc = "Toggle DAP UI" },
-      { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = { "n", "v" } },
-      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Hover widget" },
-    },
-    config = function()
-      local dap, dapui = require("dap"), require("dapui")
-
-      -- Signs
-      local signs = {
-        DapBreakpoint = { "●", "DiagnosticError" },
-        DapBreakpointCondition = { "◆", "DiagnosticWarn" },
-        DapBreakpointRejected = { "○", "DiagnosticError" },
-        DapLogPoint = { "◇", "DiagnosticInfo" },
-        DapStopped = { "▶", "DiagnosticOk", "DapStoppedLine" },
-      }
-      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-      for name, s in pairs(signs) do
-        vim.fn.sign_define(name, { text = s[1], texthl = s[2], linehl = s[3], numhl = s[2] })
-      end
-
-      -- UI opens/closes with the session
-      dapui.setup({
-        layouts = {
-          {
-            elements = { { id = "scopes", size = 0.4 }, { id = "watches", size = 0.2 }, { id = "stacks", size = 0.2 }, { id = "breakpoints", size = 0.2 } },
-            size = 40,
-            position = "left",
-          },
-          { elements = { { id = "repl", size = 0.5 }, { id = "console", size = 0.5 } }, size = 10, position = "bottom" },
-        },
-        floating = { border = "rounded" },
-      })
-      dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open({}) end
-      dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close({}) end
-      dap.listeners.before.event_exited["dapui_config"] = function() dapui.close({}) end
-
-      local mason = vim.fn.expand("$MASON/packages")
-      local is_win = vim.fn.has("win32") == 1
-
-      -------------------------------------------------------------------------
-      -- PHP (Xdebug)
-      -------------------------------------------------------------------------
-      dap.adapters.php = {
-        type = "executable",
-        command = "node",
-        args = { mason .. "/php-debug-adapter/extension/out/phpDebug.js" },
-      }
-      dap.configurations.php = {
-        {
-          name = "Listen for Xdebug 3 (port 9003)",
-          type = "php",
-          request = "launch",
-          port = 9003,
-          -- If the server runs elsewhere (docker, VM), map paths here:
-          -- pathMappings = { ["/var/www/html"] = "${workspaceFolder}" },
-        },
-        {
-          name = "Listen for Xdebug 2 (PHP 5 / WAMP, port 9000)",
-          type = "php",
-          request = "launch",
-          port = 9000,
-        },
-      }
-
-      -------------------------------------------------------------------------
-      -- JavaScript / TypeScript (node + chrome) via js-debug-adapter
-      -------------------------------------------------------------------------
-      local js_debug = mason .. "/js-debug-adapter/js-debug/src/dapDebugServer.js"
-      for _, adapter in ipairs({ "pwa-node", "pwa-chrome" }) do
-        dap.adapters[adapter] = {
-          type = "server",
-          host = "localhost",
-          port = "${port}",
-          executable = { command = "node", args = { js_debug, "${port}" } },
-        }
-      end
-      for _, ft in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" }) do
-        dap.configurations[ft] = {
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Node: launch current file",
-            program = "${file}",
-            cwd = "${workspaceFolder}",
-            runtimeExecutable = "node",
-          },
-          {
-            type = "pwa-node",
-            request = "attach",
-            name = "Node: attach to process",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-          },
-          {
-            type = "pwa-chrome",
-            request = "launch",
-            name = "Chrome: launch against dev server",
-            url = function()
-              return vim.fn.input("URL: ", "http://localhost:5173")
-            end,
-            webRoot = "${workspaceFolder}",
-            sourceMaps = true,
-          },
-        }
-      end
-
-      -------------------------------------------------------------------------
-      -- codelldb (C / C++ fallback; Rust uses rustaceanvim which configures this itself)
-      -------------------------------------------------------------------------
-      dap.adapters.codelldb = {
-        type = "executable",
-        command = mason .. "/codelldb/extension/adapter/codelldb" .. (is_win and ".exe" or ""),
-      }
-      dap.configurations.c = {
-        {
-          name = "Launch executable",
-          type = "codelldb",
-          request = "launch",
-          program = function()
-            return vim.fn.input("Executable: ", vim.fn.getcwd() .. "/", "file")
-          end,
-          cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-        },
-      }
-      dap.configurations.cpp = dap.configurations.c
-
-      -- Load a project-local .vscode/launch.json if present
-      pcall(function()
-        require("dap.ext.vscode").load_launchjs(nil, {
-          php = { "php" },
-          ["pwa-node"] = { "javascript", "typescript" },
-          ["pwa-chrome"] = { "javascript", "typescript", "vue" },
-          codelldb = { "rust", "c", "cpp" },
-        })
-      end)
-    end,
+  "mfussenegger/nvim-dap",
+  dependencies = {
+    { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
+    { "theHamsta/nvim-dap-virtual-text", opts = {} },
+    "mason-org/mason.nvim",
+  },
+  config = function() require("setup.dap") end,
+  keys = {
+    { "<F5>", function() require("dap").continue() end, desc = "Debug: Start/Continue" },
+    { "<F10>", function() require("dap").step_over() end, desc = "Debug: Step over" },
+    { "<F11>", function() require("dap").step_into() end, desc = "Debug: Step into" },
+    { "<S-F11>", function() require("dap").step_out() end, desc = "Debug: Step out" },
+    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Condition: ")) end, desc = "Conditional breakpoint" },
+    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to cursor" },
+    { "<leader>di", function() require("dap").step_into() end, desc = "Step into" },
+    { "<leader>do", function() require("dap").step_over() end, desc = "Step over" },
+    { "<leader>dO", function() require("dap").step_out() end, desc = "Step out" },
+    { "<leader>dj", function() require("dap").down() end, desc = "Down (stack)" },
+    { "<leader>dk", function() require("dap").up() end, desc = "Up (stack)" },
+    { "<leader>dl", function() require("dap").run_last() end, desc = "Run last" },
+    { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "REPL" },
+    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+    { "<leader>du", function() require("dapui").toggle({}) end, desc = "Toggle DAP UI" },
+    { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = { "n", "v" } },
+    { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Hover widget" },
   },
 }

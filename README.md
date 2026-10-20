@@ -57,6 +57,10 @@ The most used ones:
 | `<space>e` | file explorer |
 | `<space>fb`, `S-h` / `S-l` | switch buffers |
 | `s` + 2 chars | jump anywhere on screen (flash) |
+| visual `J` / `K` | move selected lines down / up |
+| `gcc` / `gc` | toggle line comment (line / visual or motion) |
+| `gbc` / `gb` | toggle block comment (line / visual or motion) |
+| `<space>m` / `<space>j` | split/join toggle / join (treesj) |
 | `gd` `gr` `gI` | definition / references / implementations |
 | `K` | hover docs |
 | `<space>ca` `<space>cr` | code action / rename |
@@ -110,18 +114,19 @@ vim.lsp.config("intelephense", {
 ## Layout
 
 ```
-init.lua                 entry
-lua/config/options.lua   editor options (+ Windows PowerShell setup)
-lua/config/keymaps.lua   general keymaps
-lua/config/autocmds.lua  autocommands
-lua/config/lazy.lua      plugin manager bootstrap
-lua/plugins/ui.lua       colorscheme, statusline, which-key, snacks (picker, explorer, dashboard…)
-lua/plugins/editor.lua   flash, gitsigns, mini.*, todo-comments, trouble, sessions
-lua/plugins/treesitter.lua
-lua/plugins/completion.lua  blink.cmp
-lua/plugins/lsp.lua      mason + language servers, rust, java plugin
-lua/plugins/formatting.lua  conform
-lua/plugins/dap.lua      debuggers
-lua/plugins/db.lua       dadbod
-ftplugin/java.lua        jdtls setup (runs per Java buffer)
+init.lua                  entry
+ftplugin/java.lua         jdtls setup (runs for each Java buffer)
+lua/config/               editor basics
+  options.lua             options (+ Windows PowerShell setup)
+  keymaps.lua             general keymaps
+  autocmds.lua            autocommands
+  lazy.lua                plugin manager bootstrap
+lua/plugins/              one file per plugin: when it loads + its keymaps
+lua/setup/                the plugin's settings, when they are longer than ~3 lines
 ```
+
+Rule: short settings stay inline in `lua/plugins/<name>.lua` (`opts = {...}`).
+Long ones go to `lua/setup/<name>.lua`, and the plugin file just does
+`config = function() require("setup.<name>") end`.
+
+To add a plugin: create `lua/plugins/<name>.lua`. To remove one: delete its file(s).
