@@ -1,13 +1,19 @@
 -- Tools that are not language servers (those are listed in setup/lsp.lua)
 local tools = {
-  "stylua", "prettierd", "shfmt",
-  "codelldb", "php-debug-adapter", "js-debug-adapter", "java-debug-adapter", "java-test",
-  "vscode-spring-boot-tools", -- Spring Boot server (application.yml / .properties)
+  'stylua',
+  'prettierd',
+  'shfmt',
+  'codelldb',
+  'php-debug-adapter',
+  'js-debug-adapter',
+  'java-debug-adapter',
+  'java-test',
+  'vscode-spring-boot-tools', -- Spring Boot server (application.yml / .properties)
 }
 
-require("mason").setup({ ui = { border = "rounded" } })
+require('mason').setup { ui = { border = 'rounded' } }
 
-local registry = require("mason-registry")
+local registry = require 'mason-registry'
 registry.refresh(function()
   for _, name in ipairs(tools) do
     local ok, pkg = pcall(registry.get_package, name)

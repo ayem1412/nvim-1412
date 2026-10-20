@@ -1,8 +1,8 @@
 -- TypeScript / JavaScript / Vue (with the Vue plugin from vue-language-server)
-local vue_plugin = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server")
+local vue_plugin = vim.fn.expand '$MASON/packages/vue-language-server/node_modules/@vue/language-server'
 
 return {
-  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' },
   settings = {
     complete_function_calls = true,
     vtsls = {
@@ -11,19 +11,19 @@ return {
       tsserver = {
         globalPlugins = {
           {
-            name = "@vue/typescript-plugin",
+            name = '@vue/typescript-plugin',
             location = vue_plugin,
-            languages = { "vue" },
-            configNamespace = "typescript",
+            languages = { 'vue' },
+            configNamespace = 'typescript',
             enableForWorkspaceTypeScriptVersions = true,
           },
         },
       },
     },
     typescript = {
-      updateImportsOnFileMove = { enabled = "always" },
+      updateImportsOnFileMove = { enabled = 'always' },
       inlayHints = {
-        parameterNames = { enabled = "literals" },
+        parameterNames = { enabled = 'literals' },
         variableTypes = { enabled = false },
         functionLikeReturnTypes = { enabled = true },
       },

@@ -1,10 +1,10 @@
 vim.g.rustaceanvim = {
   server = {
     default_settings = {
-      ["rust-analyzer"] = {
+      ['rust-analyzer'] = {
         cargo = { allFeatures = true },
-        check = { command = "clippy" },
-        inlayHints = { lifetimeElisionHints = { enable = "always" } },
+        check = { command = 'clippy' },
+        inlayHints = { lifetimeElisionHints = { enable = 'always' } },
       },
     },
   },

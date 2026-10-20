@@ -3,8 +3,8 @@
 return {
   settings = {
     yaml = {
-      schemaStore = { enable = false, url = "" }, -- use SchemaStore.nvim's list instead
-      schemas = require("schemastore").yaml.schemas(),
+      schemaStore = { enable = false, url = '' }, -- use SchemaStore.nvim's list instead
+      schemas = require('schemastore').yaml.schemas(),
     },
   },
 }

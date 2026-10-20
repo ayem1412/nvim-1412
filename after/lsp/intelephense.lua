@@ -3,8 +3,8 @@
 return {
   settings = {
     intelephense = {
-      environment = { phpVersion = "5.6.40" },
-      files = { maxSize = 5000000, exclude = { "**/vendor/**/{Tests,tests}/**", "**/node_modules/**", "**/cache/**" } },
+      environment = { phpVersion = '5.6.40' },
+      files = { maxSize = 5000000, exclude = { '**/vendor/**/{Tests,tests}/**', '**/node_modules/**', '**/cache/**' } },
       telemetry = { enabled = false },
     },
   },
