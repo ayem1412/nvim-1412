@@ -5,6 +5,8 @@ o.number = true
 o.relativenumber = true
 o.signcolumn = "yes"
 o.cursorline = true
+-- Block cursor in insert mode too (same as normal/visual). Replace stays an underline.
+o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
 o.termguicolors = true
 o.scrolloff = 8
 o.sidescrolloff = 8
