@@ -39,6 +39,10 @@ map("n", "<C-u>", "<C-u>zz")
 -- Save
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
+-- Select all (replaces Vim's "increment number" in normal mode; visual <C-a> still increments)
+map("n", "<C-a>", "ggVG", { desc = "Select all" })
+map("i", "<C-a>", "<esc>ggVG", { desc = "Select all" })
+
 -- Better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
