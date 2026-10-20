@@ -2,6 +2,7 @@
 local tools = {
   "stylua", "prettierd", "shfmt",
   "codelldb", "php-debug-adapter", "js-debug-adapter", "java-debug-adapter", "java-test",
+  "vscode-spring-boot-tools", -- Spring Boot server (application.yml / .properties)
 }
 
 require("mason").setup({ ui = { border = "rounded" } })

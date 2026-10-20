@@ -123,6 +123,7 @@ lua/config/               editor basics
   lazy.lua                plugin manager bootstrap
 lua/plugins/              one file per plugin: when it loads + its keymaps
 lua/setup/                the plugin's settings, when they are longer than ~3 lines
+after/lsp/                language server settings, one file per server (Neovim loads them by itself)
 ```
 
 Rule: short settings stay inline in `lua/plugins/<name>.lua` (`opts = {...}`).
@@ -130,3 +131,18 @@ Long ones go to `lua/setup/<name>.lua`, and the plugin file just does
 `config = function() require("setup.<name>") end`.
 
 To add a plugin: create `lua/plugins/<name>.lua`. To remove one: delete its file(s).
+
+Language servers: add the name to `ensure_installed` in `lua/setup/lsp.lua`.
+If it needs settings, create `after/lsp/<name>.lua` returning a table.
+It's in `after/` so your settings override nvim-lspconfig's defaults.
+
+## Completion per file type
+
+| File | Server |
+| --- | --- |
+| package.json, tsconfig.json, composer.json… | jsonls + SchemaStore |
+| docker-compose.yml, GitHub workflows… | yamlls + SchemaStore |
+| Cargo.toml, other TOML | taplo |
+| Dockerfile | dockerls |
+| application.yml / application.properties | spring-boot.nvim (Spring Boot server, through jdtls) |
+| pom.xml | lemminx |

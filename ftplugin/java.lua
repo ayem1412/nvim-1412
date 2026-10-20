@@ -21,6 +21,10 @@ end
 add_jars(mason .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar")
 add_jars(mason .. "/java-test/extension/server/*.jar")
 
+-- Spring Boot extension jars (from spring-boot.nvim + Mason's vscode-spring-boot-tools)
+local has_spring, spring = pcall(require, "spring_boot")
+if has_spring then vim.list_extend(bundles, spring.java_extensions()) end
+
 -- Lombok (Spring Boot projects use it a lot). Mason ships it with jdtls.
 local lombok = jdtls_pkg .. "/lombok.jar"
 local cmd = { is_win and "jdtls.cmd" or "jdtls", "-data", workspace }
