@@ -50,39 +50,53 @@ language servers and debuggers. Wait for it to finish, restart, run `:checkhealt
 Leader is `<space>`. Press it and wait: which-key shows everything.
 The most used ones:
 
-| Key | What |
-| --- | --- |
-| `<space><space>` | find files |
-| `<space>/` | grep in project |
-| `<space>e` | file explorer |
-| `<space>fb`, `S-h` / `S-l` | switch buffers |
-| `s` + 2 chars | jump anywhere on screen (flash) |
-| visual `J` / `K` | move selected lines down / up |
-| `gcc` / `gc` | toggle line comment (line / visual or motion) |
-| `gbc` / `gb` | toggle block comment (line / visual or motion) |
-| `<space>m` / `<space>j` | split/join toggle / join (treesj) |
-| `gd` `gr` `gI` | definition / references / implementations |
-| `K` | hover docs |
-| `<space>ca` `<space>cr` | code action / rename |
-| `<space>cf` | format |
-| `<space>xx` | diagnostics list |
-| `<space>gg` | lazygit |
-| `<C-/>` | terminal |
-| `<space>u…` | toggles (wrap, inlay hints, format on save…) |
+| Key                               | What                                                    |
+| --------------------------------- | ------------------------------------------------------- |
+| `<space><space>`                  | find files                                              |
+| `<space>/`                        | grep in project                                         |
+| `<space>e`                        | file explorer                                           |
+| `<space>fb`                       | pick an open file                                       |
+| `s` + 2 chars                     | jump anywhere on screen (flash)                         |
+| visual `J` / `K`                  | move selected lines down / up                           |
+| `gcc` / `gc`                      | toggle line comment (line / visual or motion)           |
+| `gbc` / `gb`                      | toggle block comment (line / visual or motion)          |
+| `<space>m` / `<space>j`           | split/join toggle / join (treesj)                       |
+| `gd` `gr` `gI`                    | definition / references / implementations               |
+| `K`                               | hover docs                                              |
+| `<space>ca` `<space>cr`           | code action / rename                                    |
+| `<space>cf`                       | format                                                  |
+| `<space>dm` / `<space>dM`         | diagnostics of the line / under the cursor              |
+| `]d` `[d` / `]e` `[e` / `]w` `[w` | next / prev diagnostic / error / warning (wraps around) |
+| `<space>xx`                       | diagnostics list                                        |
+| `<space>gg`                       | lazygit                                                 |
+| `<C-/>`                           | terminal                                                |
+| `<space>u…`                       | toggles (wrap, inlay hints, format on save…)            |
+
+### Tabs
+
+| Key                                  | What                                       |
+| ------------------------------------ | ------------------------------------------ |
+| `Alt+.` / `Alt+,` (or `S-l` / `S-h`) | next / prev tab                            |
+| `Alt+Right` / `Alt+Left`             | move tab right / left                      |
+| `Alt+1`…`Alt+9` / `Alt+0`            | go to tab N / last tab                     |
+| `Alt+p`                              | pin / unpin (pinned tabs stay on the left) |
+| `Alt+n`                              | new empty tab                              |
+| `Alt+x`, middle click                | close tab                                  |
+| right click                          | pin / unpin                                |
 
 ### Debugging
 
-| Key | What |
-| --- | --- |
-| `<space>db` | toggle breakpoint |
-| `F5` / `<space>dc` | start / continue |
-| `F10` / `F11` / `S-F11` | step over / into / out |
-| `<space>du` | toggle debug UI |
-| `<space>de` | evaluate word / selection |
-| `<space>dt` | stop |
+| Key                     | What                      |
+| ----------------------- | ------------------------- |
+| `<space>db`             | toggle breakpoint         |
+| `F5` / `<space>dc`      | start / continue          |
+| `F10` / `F11` / `S-F11` | step over / into / out    |
+| `<space>du`             | toggle debug UI           |
+| `<space>de`             | evaluate word / selection |
+| `<space>dt`             | stop                      |
 
 - **Rust**: just `F5` in a cargo project (rustaceanvim + codelldb).
-- **Java**: `F5` lists main classes (Spring Boot app included). `<space>dm` debugs the test under cursor.
+- **Java**: `F5` lists main classes (Spring Boot app included). `<space>dn` debugs the test under cursor.
 - **PHP**: enable Xdebug in WAMP, then `F5` → "Listen for Xdebug…", refresh the page in the browser.
   Xdebug 3 uses port 9003, old Xdebug 2 (PHP 5) uses 9000. Both are configured.
 - **JS/TS**: `F5` → launch node on current file, attach to a process, or launch Chrome against a dev server.
@@ -138,11 +152,11 @@ It's in `after/` so your settings override nvim-lspconfig's defaults.
 
 ## Completion per file type
 
-| File | Server |
-| --- | --- |
-| package.json, tsconfig.json, composer.json… | jsonls + SchemaStore |
-| docker-compose.yml, GitHub workflows… | yamlls + SchemaStore |
-| Cargo.toml, other TOML | taplo |
-| Dockerfile | dockerls |
-| application.yml / application.properties | spring-boot.nvim (Spring Boot server, through jdtls) |
-| pom.xml | lemminx |
+| File                                        | Server                                               |
+| ------------------------------------------- | ---------------------------------------------------- |
+| package.json, tsconfig.json, composer.json… | jsonls + SchemaStore                                 |
+| docker-compose.yml, GitHub workflows…       | yamlls + SchemaStore                                 |
+| Cargo.toml, other TOML                      | taplo                                                |
+| Dockerfile                                  | dockerls                                             |
+| application.yml / application.properties    | spring-boot.nvim (Spring Boot server, through jdtls) |
+| pom.xml                                     | lemminx                                              |

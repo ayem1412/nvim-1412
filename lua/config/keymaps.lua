@@ -37,8 +37,7 @@ map(
 )
 
 -- Buffers
-map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev buffer' })
-map('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
+-- (<S-h> / <S-l> and the Alt tab keys are in lua/plugins/bufferline.lua)
 map('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to other buffer' })
 
 -- Clear search with <esc>
@@ -64,10 +63,19 @@ map('v', '>', '>gv')
 -- Paste over selection without losing the register
 map('x', 'p', '"_dP')
 
--- Diagnostics
-map('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
-map('n', ']d', function() vim.diagnostic.jump { count = 1, float = true } end, { desc = 'Next diagnostic' })
-map('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end, { desc = 'Prev diagnostic' })
+-- Diagnostics (jumping wraps around: after the last one it goes back to the first)
+local function jump(count, severity)
+  return function() vim.diagnostic.jump { count = count, severity = severity, float = true } end
+end
+local E, W = vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN
+map('n', '<leader>dm', function() vim.diagnostic.open_float { scope = 'line' } end, { desc = 'Line diagnostics' })
+map('n', '<leader>dM', function() vim.diagnostic.open_float { scope = 'cursor' } end, { desc = 'Cursor diagnostics' })
+map('n', ']d', jump(1), { desc = 'Next diagnostic' })
+map('n', '[d', jump(-1), { desc = 'Prev diagnostic' })
+map('n', ']e', jump(1, E), { desc = 'Next error' })
+map('n', '[e', jump(-1, E), { desc = 'Prev error' })
+map('n', ']w', jump(1, W), { desc = 'Next warning' })
+map('n', '[w', jump(-1, W), { desc = 'Prev warning' })
 
 -- Quickfix / location list
 map('n', '<leader>xq', '<cmd>copen<cr>', { desc = 'Quickfix list' })

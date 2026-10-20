@@ -3,7 +3,7 @@ require('which-key').setup {
   spec = {
     { '<leader>b', group = 'buffer' },
     { '<leader>c', group = 'code' },
-    { '<leader>d', group = 'debug' },
+    { '<leader>d', group = 'debug/diagnostics' },
     { '<leader>D', group = 'database' },
     { '<leader>f', group = 'file/find' },
     { '<leader>g', group = 'git' },

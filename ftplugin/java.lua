@@ -78,7 +78,7 @@ jdtls.start_or_attach {
     map('<leader>cv', function() jdtls.extract_variable(true) end, 'Extract variable', 'v')
     map('<leader>cC', jdtls.extract_constant, 'Extract constant')
     map('<leader>cM', function() jdtls.extract_method(true) end, 'Extract method', 'v')
-    map('<leader>dm', jdtls.test_nearest_method, 'Debug nearest test method')
+    map('<leader>dn', jdtls.test_nearest_method, 'Debug nearest test method')
     map('<leader>dT', jdtls.test_class, 'Debug test class')
   end,
 }
