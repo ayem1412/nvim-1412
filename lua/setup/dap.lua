@@ -125,15 +125,3 @@ dap.configurations.c = {
   },
 }
 dap.configurations.cpp = dap.configurations.c
-
--- Load a project-local .vscode/launch.json if present
-pcall(
-  function()
-    require('dap.ext.vscode').load_launchjs(nil, {
-      php = { 'php' },
-      ['pwa-node'] = { 'javascript', 'typescript' },
-      ['pwa-chrome'] = { 'javascript', 'typescript', 'vue' },
-      codelldb = { 'rust', 'c', 'cpp' },
-    })
-  end
-)

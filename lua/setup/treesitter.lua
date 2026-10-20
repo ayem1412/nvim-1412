@@ -10,14 +10,14 @@ local parsers = {
   'bash',
   'markdown',
   'markdown_inline',
-  'json',
-  'jsonc',
+  'json', -- also used for .jsonc files (tsconfig.json, etc.)
   'yaml',
   'toml',
   'xml',
   'diff',
   'gitcommit',
   'git_rebase',
+  'gitignore',
   'dockerfile',
   -- work
   'java',
