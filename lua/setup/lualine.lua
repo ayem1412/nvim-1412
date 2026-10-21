@@ -31,6 +31,12 @@ local function lsp_names()
   return #names > 0 and '\u{f085} ' .. table.concat(names, ' ') or ''
 end
 
+-- "Spaces: 4" or "Tab: 4" for the current file
+local function indent_style()
+  local size = vim.fn.shiftwidth()
+  return vim.bo.expandtab and ('Spaces: ' .. size) or ('Tab: ' .. size)
+end
+
 local function dap_status()
   if not package.loaded['dap'] then return '' end
   local s = require('dap').status()
@@ -69,6 +75,7 @@ require('lualine').setup {
       },
       { dap_status, color = { fg = '#ff9e64' } },
       { lsp_names, color = { fg = '#7aa2f7' } },
+      { indent_style, color = { fg = '#828bb8' } },
     },
     lualine_y = {
       { 'progress', padding = { left = 1, right = 0 } },

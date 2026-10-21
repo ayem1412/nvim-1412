@@ -20,7 +20,9 @@ o.splitright = true
 o.splitbelow = true
 o.splitkeep = 'screen'
 o.list = true
-o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- Show whitespace: · = space at the start of a line, ──→ = tab, • = space at the end of a line,
+-- ␣ = non-breaking space. They use the dim "Whitespace" color, so they stay in the background.
+o.listchars = { lead = '·', tab = '──→', trail = '•', nbsp = '␣', extends = '›', precedes = '‹' }
 o.fillchars = { eob = ' ', fold = ' ', foldopen = '▾', foldclose = '▸', foldsep = ' ' }
 o.conceallevel = 0
 
