@@ -17,11 +17,11 @@ local parsers = {
   'diff',
   'gitcommit',
   'git_rebase',
-  'gitignore',
   'dockerfile',
   -- work
   'java',
   'php',
+  'twig',
   'phpdoc',
   'javascript',
   'typescript',
