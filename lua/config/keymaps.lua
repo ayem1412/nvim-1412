@@ -56,6 +56,10 @@ map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
 map('n', '<C-a>', 'ggVG', { desc = 'Select all' })
 map('i', '<C-a>', '<esc>ggVG', { desc = 'Select all' })
 
+-- Copy to the system clipboard (plain y only copies inside Neovim)
+--   <leader>y + motion (e.g. <leader>yiw), <leader>yy = line, visual <leader>y = selection
+map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to clipboard' })
+
 -- Better indenting
 map('v', '<', '<gv')
 map('v', '>', '>gv')

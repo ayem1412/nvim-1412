@@ -50,7 +50,7 @@ require('lazy').setup {
   spec = plugin_specs(),
   defaults = { lazy = true, version = false },
   install = { colorscheme = { 'tokyonight', 'habamax' } },
-  checker = { enabled = true, notify = false }, -- check for updates quietly
+  checker = { enabled = false }, -- no background update checks: update only with :Lazy sync
   change_detection = { notify = false },
   ui = { border = 'rounded' },
   performance = {

@@ -68,8 +68,7 @@ o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 o.foldlevel = 99
 o.foldtext = ''
 
--- Clipboard: sync with the system. Delayed so startup isn't blocked.
-vim.schedule(function() o.clipboard = 'unnamedplus' end)
+-- Clipboard: yank (y) stays inside Neovim. Use <leader>y to copy to the system clipboard.
 
 -- Windows: use PowerShell so :! and terminals behave
 if vim.fn.has 'win32' == 1 then

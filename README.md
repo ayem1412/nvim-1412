@@ -50,28 +50,29 @@ language servers and debuggers. Wait for it to finish, restart, run `:checkhealt
 Leader is `<space>`. Press it and wait: which-key shows everything.
 The most used ones:
 
-| Key                               | What                                                             |
-| --------------------------------- | ---------------------------------------------------------------- |
-| `<space><space>`                  | find files                                                       |
-| `<space>/`                        | grep in project                                                  |
-| `<space>e`                        | file explorer                                                    |
-| `<space>fb`                       | pick an open file                                                |
-| `s` + 2 chars                     | jump anywhere on screen (flash)                                  |
-| visual `J` / `K`                  | move selected lines down / up                                    |
-| `gcc` / `gc`                      | toggle line comment (line / visual or motion)                    |
-| `gbc` / `gb`                      | toggle block comment (line / visual or motion)                   |
-| `<space>m` / `<space>j`           | split/join toggle / join (treesj)                                |
-| `gd` `gr` `gI`                    | definition / references / implementations                        |
-| `K`                               | hover docs                                                       |
-| `<space>ca` `<space>cr`           | code action / rename                                             |
-| `<space>cf`                       | format                                                           |
-| `Tab` / `S-Tab`, `Enter`          | completion: move down / up, apply (nothing is selected at first) |
-| `<space>dm` / `<space>dM`         | diagnostics of the line / under the cursor                       |
-| `]d` `[d` / `]e` `[e` / `]w` `[w` | next / prev diagnostic / error / warning (wraps around)          |
-| `<space>xx`                       | diagnostics list                                                 |
-| `<space>gg`                       | lazygit                                                          |
-| `<C-/>`                           | terminal                                                         |
-| `<space>u…`                       | toggles (wrap, inlay hints, format on save…)                     |
+| Key                                 | What                                                             |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| `<space><space>`                    | find files                                                       |
+| `<space>/`                          | grep in project                                                  |
+| `<space>e`                          | file explorer                                                    |
+| `<space>fb`                         | pick an open file                                                |
+| `s` + 2 chars                       | jump anywhere on screen (flash)                                  |
+| visual `J` / `K`                    | move selected lines down / up                                    |
+| `gcc` / `gc`                        | toggle line comment (line / visual or motion)                    |
+| `gbc` / `gb`                        | toggle block comment (line / visual or motion)                   |
+| `<space>m` / `<space>j`             | split/join toggle / join (treesj)                                |
+| `gd` `gr` `gI`                      | definition / references / implementations                        |
+| `K`                                 | hover docs                                                       |
+| `<space>ca` `<space>cr`             | code action / rename                                             |
+| `<space>cf`                         | format                                                           |
+| `Tab` / `S-Tab`, `Enter`            | completion: move down / up, apply (nothing is selected at first) |
+| `<space>y` (+ motion, or in visual) | copy to the system clipboard (`y` alone stays inside Neovim)     |
+| `<space>dm` / `<space>dM`           | diagnostics of the line / under the cursor                       |
+| `]d` `[d` / `]e` `[e` / `]w` `[w`   | next / prev diagnostic / error / warning (wraps around)          |
+| `<space>xx`                         | diagnostics list                                                 |
+| `<space>gg`                         | lazygit                                                          |
+| `<C-/>`                             | terminal                                                         |
+| `<space>u…`                         | toggles (wrap, inlay hints, format on save…)                     |
 
 ### Tabs
 
