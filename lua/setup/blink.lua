@@ -6,7 +6,12 @@ require('blink.cmp').setup {
     ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
     -- Enter: apply the selected item. Nothing selected: a normal Enter (new line).
     ['<CR>'] = { 'accept', 'fallback' },
+    -- Ctrl+Space: open the menu. Many Windows terminals send Ctrl+Space as Ctrl+@, so map both.
     ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+    ['<C-@>'] = { 'show', 'show_documentation', 'hide_documentation' },
+    -- Ctrl+N / Ctrl+P: open the menu, or move down / up in it
+    ['<C-n>'] = { 'select_next', 'show' },
+    ['<C-p>'] = { 'select_prev', 'show' },
     ['<C-e>'] = { 'hide', 'fallback' },
     ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
     ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
