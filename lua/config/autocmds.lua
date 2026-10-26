@@ -50,6 +50,13 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
+-- Volt comments look like {# ... #} (used by gcc / gc)
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup 'volt',
+  pattern = 'volt',
+  callback = function() vim.bo.commentstring = '{# %s #}' end,
+})
+
 -- Per-filetype indentation
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup 'indent',

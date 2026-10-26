@@ -53,8 +53,12 @@ o.backup = false
 o.writebackup = false
 o.autowrite = true
 o.confirm = true
-o.fileformats = 'unix,dos' -- keep LF unless the file is already CRLF
+-- Line endings to recognize: LF (Linux), CRLF (Windows), CR (old Mac). Files keep the one they have.
+o.fileformats = 'unix,dos,mac'
 o.exrc = true -- load a trusted .nvim.lua from the project root (per-project overrides)
+
+-- Extra file types: Phalcon's Volt templates
+vim.filetype.add { extension = { volt = 'volt' } }
 
 -- Performance
 o.updatetime = 200

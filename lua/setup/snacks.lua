@@ -1,5 +1,7 @@
 require('snacks').setup {
-  bigfile = { enabled = true }, -- turns off heavy features on huge files
+  -- Turn off heavy features only for files over 1.5 MB. (The default also does it for files
+  -- with very long lines, which caught small one-line templates.)
+  bigfile = { enabled = true, line_length = math.huge },
   quickfile = { enabled = true },
   notifier = { enabled = true, timeout = 3000 },
   input = { enabled = true },

@@ -1,4 +1,4 @@
--- Emmet: same file types as the default, plus Twig
+-- Emmet: same file types as the default, plus Twig and Volt
 return {
   filetypes = {
     'astro',
@@ -12,8 +12,9 @@ return {
     'sass',
     'scss',
     'svelte',
-    'twig',
     'typescriptreact',
     'vue',
+    'twig',
+    'volt',
   },
 }

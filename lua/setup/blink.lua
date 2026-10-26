@@ -11,6 +11,7 @@ require('blink.cmp').setup {
     ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
     ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
   },
+  snippets = { preset = 'luasnip' }, -- see lua/plugins/luasnip.lua for why
   appearance = { nerd_font_variant = 'mono' },
   completion = {
     -- Nothing selected when the menu opens, and moving in the menu doesn't change your text

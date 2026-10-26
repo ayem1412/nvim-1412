@@ -45,6 +45,9 @@ local installed = ts.get_installed 'parsers'
 local missing = vim.tbl_filter(function(p) return not vim.tbl_contains(installed, p) end, parsers)
 if #missing > 0 then ts.install(missing) end
 
+-- Volt (Phalcon templates) looks almost like Twig, so use the Twig parser for its colors
+vim.treesitter.language.register('twig', 'volt')
+
 -- Turn on highlighting + indentation when a parser exists for the file
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('cfg_treesitter', { clear = true }),
