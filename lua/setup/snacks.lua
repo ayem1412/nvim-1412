@@ -10,6 +10,9 @@ require('snacks').setup {
   statuscolumn = { enabled = true },
   scroll = { enabled = false },
   explorer = { enabled = true },
+  -- Show images (png, jpg, ...) and images inside Markdown. Only works in terminals
+  -- that support the kitty image protocol: Kitty, Ghostty (WezTerm: image files only).
+  image = { enabled = true },
   picker = {
     sources = {
       explorer = { hidden = true, ignored = false },
