@@ -54,6 +54,8 @@ The most used ones:
 | ----------------------------------- | ---------------------------------------------------------------- |
 | `<space><space>`                    | find files                                                       |
 | `<space>/`                          | grep in project                                                  |
+| `<space>sr` / `<space>sf`           | search & replace in the project / this file (preview first)      |
+| `:%s/old/new/g`                     | quick replace in this file (live preview while typing)           |
 | `<space>e`                          | file explorer                                                    |
 | `<space>fb`                         | pick an open file                                                |
 | `s` + 2 chars                       | jump anywhere on screen (flash)                                  |

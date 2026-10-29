@@ -9,7 +9,7 @@ require('which-key').setup {
     { '<leader>g', group = 'git' },
     { '<leader>gh', group = 'hunks' },
     { '<leader>q', group = 'quit/session' },
-    { '<leader>s', group = 'search' },
+    { '<leader>s', group = 'search/replace' },
     { '<leader>u', group = 'ui/toggle' },
     { '<leader>w', group = 'window' },
     { '<leader>x', group = 'diagnostics/lists' },
