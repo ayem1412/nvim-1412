@@ -5,6 +5,10 @@ o.number = true
 o.relativenumber = true
 o.signcolumn = 'yes'
 o.cursorline = true
+-- Ruler: a vertical line just after the line width ('textwidth'). The width is 120 by default,
+-- or what .editorconfig / biome.json / .prettierrc say (see lua/config/style.lua).
+o.textwidth = 120
+o.colorcolumn = '+1'
 -- Block cursor in insert mode too (same as normal/visual). Replace stays an underline.
 o.guicursor = 'n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor'
 o.termguicolors = true
@@ -36,7 +40,7 @@ o.smartindent = true
 o.breakindent = true
 o.virtualedit = 'block'
 o.completeopt = 'menu,menuone,noselect'
-o.formatoptions = 'jcroqlnt'
+o.formatoptions = 'jcroqln' -- no 't': don't break code lines while typing (comments still wrap)
 
 -- Search
 o.ignorecase = true

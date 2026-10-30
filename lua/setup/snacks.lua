@@ -5,7 +5,14 @@ require('snacks').setup {
   quickfile = { enabled = true },
   notifier = { enabled = true, timeout = 3000 },
   input = { enabled = true },
-  indent = { enabled = true, animate = { enabled = false } },
+  -- Indent guides drawn as dots, the same as the whitespace dots, so they don't hide the first one.
+  -- The block your cursor is in gets brighter dots.
+  indent = {
+    enabled = true,
+    indent = { char = '·' },
+    scope = { char = '·' },
+    animate = { enabled = false },
+  },
   words = { enabled = true }, -- highlight other uses of the word under cursor
   statuscolumn = { enabled = true },
   scroll = { enabled = false },
