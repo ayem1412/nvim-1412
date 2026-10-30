@@ -15,7 +15,6 @@ local parsers = {
   'json',
   'lua',
   'luadoc',
-  'luac',
   'luadoc',
   'markdown',
   'markdown_inline',
